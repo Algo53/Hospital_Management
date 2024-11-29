@@ -13,8 +13,7 @@ const app = express();
 ConnectToMongoDB();
 
 app.use(cors({
-  origin: "*",
-  // origin: [process.env.CLIENT_URL || "https://hm-frontend-six.vercel.app"],
+  origin: [process.env.CLIENT_URL ? process.env.CLIENT_URL : "https://hm-frontend-six.vercel.app/" , "https://hm-frontend-six.vercel.app"],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }))
