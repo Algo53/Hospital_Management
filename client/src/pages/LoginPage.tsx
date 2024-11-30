@@ -14,7 +14,7 @@ function LoginPage() {
   const status = useAppSelector(selectStatus);
 
   const [role, setRole] = useState<string | null>(null);
-  const [img, setImg] = useState<string>('/images/homepage3.webp');
+  const [img, setImg] = useState<string>('/images/homePage3.webp');
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -36,7 +36,7 @@ function LoginPage() {
   useEffect(() => {
     if (role) {
       if (role === 'Admin') {
-        setImg('/images/homepage3.webp');
+        setImg('/images/homePage3.webp');
       }
       else if (role === 'Doctor') {
         setImg('/images/login.webp');
