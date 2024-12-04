@@ -1,47 +1,47 @@
-Hospital Management System
+# Hospital Management System
 
-Overview
+## Overview
 This project is a Hospital Management System (HMS) built using the MERN stack (MongoDB, Express, React, Node.js) and TypeScript. It demonstrates the implementation of Authentication, Authorization, and Role-Based Access Control (RBAC), enabling secure and efficient management of users with specific roles.
 
-Features
+## Features
 
-User Roles and Permissions
+## User Roles and Permissions
 
-Admin:
+1. Admin:
 Add new doctors, nurses, and other staff to the management system.
 Delete or deactivate user accounts.
 
-Doctor:
+2. Doctor:
 View nurse data for collaboration.
 Modify patient data and manage assignments.
 
-Nurse:
+3. Nurse:
 View patient data assigned by doctors.
 Update treatment progress for patients.
 
-Patient:
+4. Patient:
 View personal medical records and assigned treatments.
 Update personal information (e.g., address, contact details)
 
 
-Key Functionalitis
+## Key Functionalitis
 
-Authentication:
+1. Authentication:
 Secure registration and login using JSON Web Tokens (JWT).
 Password hashing with bcrypt for secure storage.
 
-Authorization:
+2. Authorization:
 Role-based access control enforced at the route level using custom middleware.
 
-RESTful APIs:
+3. RESTful APIs:
 Modularized APIs for user, role, and resource management.
 
-Frontend:
+4. Frontend:
 Responsive and user-friendly interface for managing hospital operations.
 
-Tech Stack
+# Tech Stack
 
-Backend:
+## Backend:
 
 Node.js with Express.js for server-side logic.
 
@@ -51,7 +51,7 @@ Mongoose for schema validation.
 
 TypeScript for type safety and enhanced development experience.
 
-Frontend:
+## Frontend:
 
 React.js with TypeScript for the user interface.
 
@@ -60,7 +60,7 @@ Axios for API integration.
 Tailwind CSS (or any preferred CSS framework) for styling.
 
 
-Installation and Setup
+# Installation and Setup
 
 Prerequisites
 
