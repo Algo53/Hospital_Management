@@ -56,9 +56,43 @@ declare type INurse = {
     dateOfBirth?: string,
     photo?: string,
     companyName: string,
+    assignedDoctor?: IdType,
     shiftTimings: string[],
     specialization: string[],
     degree: string[],
+}
+
+declare type IPatient = {
+    _id: Types.ObjectId;
+    userId: {
+        firstName: string,
+        lastName: string,
+        email: string,
+        dateOfBirth: string,
+        phone: string | number,
+        gender: string,
+        photo: string,
+    }
+    height: number,
+    weight: number,
+    address: string,
+    bloodGroup: string,
+    bloodPressure: string,
+    appointments: string[],
+    medicalHistory: string,
+    emergencyContactName: string,
+    emergencyContactRelation: string,
+    emergencyContactPhone: string | number,
+}
+
+declare type IAppointment = {
+    _id: Types.ObjectId;
+    patientId: IdType | string;
+    doctorId: IdType | string;
+    scheduledDate: string,
+    reasoneForAppointment: string,
+    status: "Pending" | "Completed",
+    progress: number
 }
 
 // Register a new Admin
@@ -91,6 +125,14 @@ declare type UpdateUserParams = {
     photo?: string | null,
 }
 
+// Update Patient types
+declare type UpdatePatientParams = {
+    bloodGroup?: string,
+    bloodPressure?: string,
+    height?: number,
+    weight?: number,
+}
+
 declare type IAddDoctor = {
     firstName: string,
     lastName: string,
@@ -120,6 +162,31 @@ declare type IAddNurse = {
     shiftTimings: string[],
     specialization: string[],
     degree: string[],
+}
+
+declare type IAddPatient = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    dateOfBirth: string,
+    phone: string | number,
+    gender: string,
+    photo: string,
+    address: string,
+    emergencyContactName: string,
+    emergencyContactPhone: string | number,
+    emergencyContactRelation: string,
+    bloodGroup: string,
+    bloodPressure: string,
+    height: number,
+    weight: number,
+}
+
+declare type IAddAppointment = {
+    patientId: string,
+    doctorId: string,
+    reasoneForAppointment: string,
+    scheduledDate: string,
 }
 
 // Task adding types

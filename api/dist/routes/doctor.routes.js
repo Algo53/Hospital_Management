@@ -9,4 +9,6 @@ const authentication_1 = require("../middlewares/authentication");
 const router = express_1.default.Router();
 router.get('/', doctor_controllers_1.getAllDoctorInfo);
 router.get('/:id', authentication_1.authenticate, doctor_controllers_1.getDoctorInfo);
+router.get('/:id/assignedSlots', doctor_controllers_1.getDoctorAssignedSlots);
+router.post('/:id/assign/nurse', authentication_1.authenticate, doctor_controllers_1.assignNurseToDoctor);
 exports.default = router;

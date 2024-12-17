@@ -36,7 +36,6 @@ function RegisterPage() {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(userDetails);
     setLoading(true); // Show loading toggle
     dispatch(registerRoute(userDetails));
   }
@@ -74,7 +73,7 @@ function RegisterPage() {
           <div className="w-16 h-16 border-4 border-t-blue-500 border-gray-200 rounded-full animate-spin"></div>
         </div>
       )}
-      <div className="flex h-4/6 w-3/5 shadow-xl hover:shadow-2xl rounded-2xl">
+      <div className="flex h-4/6 sm:w-4/5 xl:w-3/5 w-full shadow-xl hover:shadow-2xl rounded-2xl">
         <div className="flex w-1/2">
           <img className="flex rounded-l-2xl" src="/images/homepage3.webp" alt="" />
         </div>

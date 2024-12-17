@@ -7,13 +7,14 @@ import adminRoutes from './routes/admin.routes';
 import userRoutes from './routes/user.routes';
 import doctorRoutes from './routes/doctor.routes';
 import nurseRoutes from './routes/nurse.routes';
+import patientRoutes from './routes/patient.routes';
 
 dotenv.config();
 const app = express();
 ConnectToMongoDB();
 
 app.use(cors({
-  origin: ["https://hm-frontend-six.vercel.app"],
+  origin: [process.env.CLIENT_URL || "https://hm-frontend-six.vercel.app"],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }))
@@ -28,6 +29,7 @@ app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/doctor', doctorRoutes);
 app.use('/nurse', nurseRoutes);
+app.use('/patient', patientRoutes);
 app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 8000;

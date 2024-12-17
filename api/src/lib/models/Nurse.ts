@@ -6,6 +6,7 @@ const timeRangeRegex = /^([01]\d|2[0-3]):[0-5]\d-([01]\d|2[0-3]):[0-5]\d$/;
 // Defining the Nurse interface
 export interface INurse extends Document {
     userId: mongoose.Types.ObjectId,
+    assignedDoctor: mongoose.Types.ObjectId | null,
     companyName: string,
     degree: string[],
     specialization: string[],
@@ -18,6 +19,11 @@ const NurseSchema = new mongoose.Schema<INurse>({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User"
+    },
+    assignedDoctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Doctor"
     },
     companyName: {
         type: String,

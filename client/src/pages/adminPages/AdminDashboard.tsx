@@ -1,38 +1,51 @@
-import { useEffect } from "react"
-import { useAppDispatch } from "../../redux/store"
-import { getAllDoctorInfoRoute } from "../../redux/slices/DoctorInfoSlice";
-import { getAllNurseInfoRoute } from "../../redux/slices/NurseInfoSlice";
+import { useEffect} from "react"
+import { useAppDispatch, useAppSelector } from "../../redux/store"
+import { getAllDoctorInfoRoute, selectAllDoctors } from "../../redux/slices/DoctorInfoSlice";
+import { getAllNurseInfoRoute, selectAllNurses } from "../../redux/slices/NurseInfoSlice";
+import { getAdminInfoRoute, selectAdminInfo } from "../../redux/slices/AdminInfoSlice";
+import { selectAllPatients } from "../../redux/slices/PatientInfoSlice";
 
 function AdminDashboard() {
   const dispatch = useAppDispatch();
+  const adminInfo = useAppSelector(selectAdminInfo);
+  const allDoctors = useAppSelector(selectAllDoctors);
+  const allStaff = useAppSelector(selectAllNurses);
+  const allPatients = useAppSelector(selectAllPatients);
+
+  const noOfDoctors = allDoctors?.length || 0;
+  const noOfStaff = allStaff?.length || 0;
+  const noOfPatients = allPatients.length || 0; 
+  const noOfBeds = 57; // Example static value
+
   const options = [
     {
       icon: 'user-doctor',
       name: "Total Doctors",
-      value: 123
+      value: noOfDoctors
     },
     {
       icon: 'user-nurse',
       name: "Total Staff",
-      value: 89
+      value: noOfStaff
     },
     {
       icon: 'people-group',
       name: "Total Patients",
-      value: 498
+      value: noOfPatients
     },
     {
       icon: 'bed-pulse',
       name: "Hospital bed",
-      value: 178
+      value: noOfBeds
     }
   ]
 
   useEffect( () => {
+    if (!adminInfo) dispatch(getAdminInfoRoute());
     dispatch(getAllDoctorInfoRoute());
     dispatch(getAllNurseInfoRoute());
   }, [])
-
+  
   return (
     <div className='flex w-full max-h-screen'>
       <div className='flex flex-col w-full h-full overflow-y-scroll hide-scrollbar'>
@@ -57,6 +70,7 @@ function AdminDashboard() {
             </div>
           ))}
         </div>
+        
       </div>
     </div>
   )

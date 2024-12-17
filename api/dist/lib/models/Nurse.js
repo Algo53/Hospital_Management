@@ -13,6 +13,11 @@ const NurseSchema = new mongoose_1.default.Schema({
         required: true,
         ref: "User"
     },
+    assignedDoctor: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        required: true,
+        ref: "Doctor"
+    },
     companyName: {
         type: String,
         required: true,

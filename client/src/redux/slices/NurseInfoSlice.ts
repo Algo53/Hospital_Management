@@ -7,14 +7,14 @@ interface INurseInfoState {
     nurseInfo: INurse | null;
     allNurses: INurse[];
     status: 'idle' | 'loading' | 'rejected'
-}
+};
 
 const initialState: INurseInfoState = {
     newNurse: null,
     nurseInfo: null,
     allNurses: [],
     status: 'idle'
-}
+};
 
 export const addNurseRoute = createAsyncThunk(
     'add a new nurse',
@@ -40,7 +40,7 @@ export const addNurseRoute = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const getAllNurseInfoRoute = createAsyncThunk(
     'Getting all nurse Details',
@@ -83,7 +83,7 @@ export const getNurseInfoRoute = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const nurseInfoSlice = createSlice({
     name: 'nurseInfo',
@@ -132,7 +132,7 @@ export const nurseInfoSlice = createSlice({
 
 export const selectAllNurses = (state: RootState) => state.nurseInfo.allNurses;
 export const selectNewNurse = (state: RootState) => state.nurseInfo.newNurse;
-export const selectNurseInfo = (state: RootState) => state.nurseInfo.newNurse;
+export const selectNurseInfo = (state: RootState) => state.nurseInfo.nurseInfo;
 export const selectStatus = (state: RootState) => state.nurseInfo.status;
 
 export const {resetNewNurse} = nurseInfoSlice.actions;

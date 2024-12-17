@@ -5,6 +5,7 @@ import axios from 'axios';
 interface IDoctorInfoState {
     newDoctor: any | null;
     doctorInfo: IDoctor | null;
+    doctorSlots:  { value: string; data: string }[];
     allDoctors: IDoctor[];
     status: 'idle' | 'loading' | 'rejected'
 }
@@ -12,6 +13,7 @@ interface IDoctorInfoState {
 const initialState: IDoctorInfoState = {
     newDoctor: null,
     doctorInfo: null,
+    doctorSlots: [],
     allDoctors: [],
     status: 'idle'
 }
@@ -40,7 +42,7 @@ export const addDoctorRoute = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const getAllDoctorInfoRoute = createAsyncThunk(
     'Getting all doctors Details',
@@ -83,7 +85,55 @@ export const getDoctorInfoRoute = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
+
+export const assignNurseToDoctor = createAsyncThunk(
+    'Assign a Nurse under the doctor for work',
+    async(payload : {nurseId: IdType}, {getState, rejectWithValue }) => {
+        try {
+            const state = getState() as RootState;
+            const token = state.userInfo.token;
+            const doctorInfo = state.doctorInfo.doctorInfo;
+            const doctorId = doctorInfo?._id;
+            if (!doctorId || !token) {
+                return rejectWithValue('DoctorId or token is missing');
+            }
+
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URI}/doctor/${doctorId}/assign/nurse`,
+                payload,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    withCredentials: true
+                }
+            )
+            const result = await response.data;
+            return result.success ? true : false 
+        } catch(error: any){
+            return rejectWithValue(error.response.data);
+        }
+
+    }
+);
+
+export const getDoctorAssignedSlots = createAsyncThunk(
+    'Finding the doctor assigned slots',
+    async(payload: {doctorId: IdType}, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/doctor/${payload.doctorId}/assignedSlots`,
+                {
+                    withCredentials: true
+                }
+            )
+            const result = await response.data;
+            return result.success ? result.data : [];
+        }catch(error: any){
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 export const doctorInfoSlice = createSlice({
     name: 'doctorInfo',
@@ -126,13 +176,16 @@ export const doctorInfoSlice = createSlice({
             .addCase( getDoctorInfoRoute.rejected, (state) => {
                 state.status = "rejected";
             })
-
+            .addCase(getDoctorAssignedSlots.fulfilled, (state, action: PayloadAction<any>) => {
+                state.doctorSlots = action.payload;
+            })
     }
 })
 
 export const selectAllDoctors = (state: RootState) => state.doctorInfo.allDoctors;
 export const selectNewDoctor = (state: RootState) => state.doctorInfo.newDoctor;
 export const selectDoctorInfo = (state: RootState) => state.doctorInfo.doctorInfo;
+export const selectDoctorSlots = (state: RootState) => state.doctorInfo.doctorSlots;
 export const selectStatus = (state: RootState) => state.doctorInfo.status;
 
 export const {resetNewDoctor} = doctorInfoSlice.actions;

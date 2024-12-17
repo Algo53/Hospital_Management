@@ -5,20 +5,23 @@ export const adminUrls = [
     { path: 'doctors', name: 'Doctors' },
     { path: 'staff', name: 'Staff' },
     { path: 'appointment', name: 'Appointment' },
-    { path: 'patient', name: 'Patients' },
+    { path: 'patients', name: 'Patients' },
 ]
 
 export const doctorUrls = [
     { path: '', name: 'Dashboard' },
     { path: 'appointment', name: 'Appointment' },
-    { path: 'patient', name: 'Patients' },
+    { path: 'staff', name: 'Staff' },
+    { path: 'patients', name: 'Patients' },
 ]
 
 export const nurseUrls = [
     { path: '', name: 'Dashboard' },
-    { path: 'doctors', name: 'Doctors' },
+    { path: 'appointment/add', name: 'Create Appointment' },
+    { path: 'patient/add', name: 'Add New Patient' },
     { path: 'appointment', name: 'Appointment' },
-    { path: 'patient', name: 'Patients' },
+    { path: 'patients', name: 'Patients' },
+    { path: 'doctors', name: 'Doctors' },
 ]
 
 export const patientUrls = [

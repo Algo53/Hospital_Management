@@ -9,12 +9,16 @@ const AppointmentSchema = new mongoose_1.default.Schema({
     patientId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         required: true,
-        ref: "User"
+        ref: "Patient"
     },
     doctorId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         required: true,
         ref: "Doctor",
+    },
+    reasoneForAppointment: {
+        type: String,
+        default: ""
     },
     status: {
         type: String,
@@ -28,8 +32,8 @@ const AppointmentSchema = new mongoose_1.default.Schema({
         max: 100
     },
     scheduledDate: {
-        type: Date,
-        default: Date.now
+        type: String,
+        required: true
     }
 });
 // Defing the Appointment Model and export it

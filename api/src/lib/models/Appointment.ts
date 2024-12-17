@@ -4,7 +4,8 @@ import mongoose, { Document } from "mongoose";
 export interface IAppointment extends Document {
     patientId: mongoose.Types.ObjectId,
     doctorId: mongoose.Types.ObjectId,
-    scheduledDate: Date,
+    reasoneForAppointment: string,
+    scheduledDate: string,
     status: "Pending" | "Completed",
     progress: number
 }
@@ -14,12 +15,16 @@ const AppointmentSchema = new mongoose.Schema<IAppointment>({
     patientId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User"
+        ref: "Patient"
     },
     doctorId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Doctor",
+    },
+    reasoneForAppointment: {
+        type: String,
+        default: ""
     },
     status: {
         type: String,
@@ -33,9 +38,9 @@ const AppointmentSchema = new mongoose.Schema<IAppointment>({
         max: 100
     },
     scheduledDate: {
-        type: Date,
-        default: Date.now
-    }
+        type: String,
+        required: true
+   }
 })
 
 // Defing the Appointment Model and export it

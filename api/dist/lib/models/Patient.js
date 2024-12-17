@@ -15,6 +15,30 @@ const PatientSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
+    height: {
+        type: Number,
+    },
+    weight: {
+        type: Number
+    },
+    address: {
+        type: String
+    },
+    bloodGroup: {
+        type: String
+    },
+    bloodPressure: {
+        type: String
+    },
+    emergencyContactName: {
+        type: String
+    },
+    emergencyContactPhone: {
+        type: String
+    },
+    emergencyContactRelation: {
+        type: String
+    },
     appointments: [
         {
             type: mongoose_1.default.Schema.Types.ObjectId,

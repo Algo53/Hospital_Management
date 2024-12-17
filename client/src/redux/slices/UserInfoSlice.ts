@@ -9,6 +9,8 @@ interface IUserInfoState {
     token: string | null;
     role: "Admin" | "Doctor" | "Nurse" | "Patient" | null;
     userInfo: IUser | null;
+    showUserId: IdType | null;
+    showUserDetails: any | null;
     status: 'idle' | 'loading' | 'rejected'
 }
 
@@ -19,6 +21,8 @@ const initialState: IUserInfoState = {
     token: null,
     role: null,
     userInfo: null,
+    showUserId: null,
+    showUserDetails: null,
     status: 'idle'
 }
 
@@ -114,6 +118,33 @@ export const getUserDetailsRoute = createAsyncThunk(
     }
 );
 
+export const getShowUserDetails = createAsyncThunk(
+    'Getting the another user details from the another user id',
+    async(_, {getState, rejectWithValue}) => {
+        try {
+            const state = getState() as RootState;
+            const showUserId = state.userInfo.showUserId;
+            const token = state.userInfo.token;
+            if (!token) {
+                return rejectWithValue("Token is missing");
+            } 
+
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/user/${showUserId}`, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    withCredentials: true
+                }
+            )
+            const result = await response.data;
+            return result.success === true ? result.data : false;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
 
 export const userInfoSlice = createSlice({
     name: 'userInfo',
@@ -138,6 +169,12 @@ export const userInfoSlice = createSlice({
             state.role = null;
             state.userInfo = null;
         },
+        setUserId: (state, action: PayloadAction<any>) => {
+            state.showUserId = action.payload;
+        },
+        removeUserId: (state) => {
+            state.showUserId = null;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -190,6 +227,9 @@ export const userInfoSlice = createSlice({
             .addCase(updateUserRoute.rejected, (state) => {
                 state.status = "rejected";
             })
+            .addCase(getShowUserDetails.fulfilled, (state, action: PayloadAction<any>) => {
+                state.showUserDetails = action.payload;
+            })
     }
 })
 
@@ -199,7 +239,9 @@ export const selectRole = (state: RootState) => state.userInfo.role;
 export const selectToken = (state: RootState) => state.userInfo.token;
 export const selectUser = (state: RootState) => state.userInfo.user;
 export const selectUserInfo = (state: RootState) => state.userInfo.userInfo;
+export const selectShowUserId = (state: RootState) => state.userInfo.showUserId;
+export const selectShowUserDetails = (state: RootState) => state.userInfo.showUserDetails;
 export const selectStatus = (state: RootState) => state.userInfo.status;
 
-export const { setMenu, setMode, userInfoReset } = userInfoSlice.actions;
+export const { setMenu, setMode, userInfoReset, setUserId, removeUserId } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

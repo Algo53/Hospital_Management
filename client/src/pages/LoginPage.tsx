@@ -28,7 +28,6 @@ function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(userDetails);
     setLoading(true);
     dispatch(loginRoute(userDetails));
   }
@@ -76,7 +75,7 @@ function LoginPage() {
           <div className="w-16 h-16 border-4 border-t-blue-500 border-gray-200 rounded-full animate-spin"></div>
         </div>
       )}
-      <div className="flex h-2/3 w-3/5 shadow-xl hover:shadow-2xl rounded-2xl">
+      <div className="flex h-2/3 sm:w-4/5 xl:w-3/5 w-full shadow-xl hover:shadow-2xl rounded-2xl">
         <div className="flex w-1/2">
           <img className="flex rounded-l-2xl" src={img} alt="" />
         </div>
@@ -87,8 +86,8 @@ function LoginPage() {
               <div className="flex text-md">Enter your credentials to access your account.</div>
             </div>
             <div className="flex gap-2 w-full justify-between">
-              <div className="flex text-xl w-full font-bold">Login as :</div>
-              <select className="w-full flex shadow-inner" value={role || ""} onChange={(event) => setRole(event.target.value)}>
+              <div className="flex text-lg md:text-xl w-full font-bold">Login as :</div>
+              <select className="w-full flex shadow-inner text-xs sm:text-lg" value={role || ""} onChange={(event) => setRole(event.target.value)}>
                 <option value="" disabled>Select Role</option>
                 <option value="Admin">Admin</option>
                 <option value="Doctor">Doctor</option>

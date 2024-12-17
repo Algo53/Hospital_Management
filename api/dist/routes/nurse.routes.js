@@ -9,4 +9,6 @@ const authentication_1 = require("../middlewares/authentication");
 const router = express_1.default.Router();
 router.get('/', nurse_controllers_1.getAllNurseInfo);
 router.get('/:id', authentication_1.authenticate, nurse_controllers_1.getNurseInfo);
+router.post('/:id/patient/add', authentication_1.authenticate, nurse_controllers_1.addNewPatient);
+router.post('/:id/appointment/add', authentication_1.authenticate, nurse_controllers_1.bookAppointment);
 exports.default = router;

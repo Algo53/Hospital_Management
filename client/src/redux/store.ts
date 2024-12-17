@@ -5,6 +5,8 @@ import userInfoReducer from './slices/UserInfoSlice';
 import adminInfoReducer from './slices/AdminInfoSlice';
 import doctorInfoReducer from './slices/DoctorInfoSlice';
 import nurseInfoReducer from './slices/NurseInfoSlice';
+import patientInfoReducer from './slices/PatientInfoSlice';
+import appointmentInfoReducer from './slices/AppointmentInfoSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     adminInfo: adminInfoReducer,
     doctorInfo: doctorInfoReducer,
     nurseInfo: nurseInfoReducer,
+    patientInfo: patientInfoReducer,
+    appointmentInfo: appointmentInfoReducer,
   },
 });
 

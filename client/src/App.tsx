@@ -16,6 +16,9 @@ import DoctorsList from './pages/DoctorsList';
 import AddDoctor from './pages/adminPages/AddDoctor';
 import AddNurse from './pages/adminPages/AddNurse';
 import NurseList from './pages/NurseList';
+import AddPatient from './pages/nursePages/AddPatient';
+import CreateAppointment from './pages/nursePages/CreateAppointment';
+import PatientList from './pages/PatientList';
 
 function App() {
   const userRole = useAppSelector(selectRole);
@@ -83,6 +86,18 @@ function App() {
         {
           path: 'staff',
           element: <NurseList />  
+        },
+        {
+          path: 'patient/add',
+          element: <AddPatient />
+        },
+        {
+          path: 'patients',
+          element: <PatientList />  
+        },
+        {
+          path: 'appointment/add',
+          element: <CreateAppointment />
         }
       ]
     }

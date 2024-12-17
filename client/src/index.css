@@ -25,6 +25,12 @@ input {
   /* Removes any box shadow */
 }
 
+textarea {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
 /* Hide scrollbar for Chrome, Safari, and Edge */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

@@ -12,6 +12,7 @@ const admin_routes_1 = __importDefault(require("./routes/admin.routes"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const doctor_routes_1 = __importDefault(require("./routes/doctor.routes"));
 const nurse_routes_1 = __importDefault(require("./routes/nurse.routes"));
+const patient_routes_1 = __importDefault(require("./routes/patient.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, db_1.ConnectToMongoDB)();
@@ -28,6 +29,7 @@ app.use('/auth', auth_routes_1.default);
 app.use('/admin', admin_routes_1.default);
 app.use('/doctor', doctor_routes_1.default);
 app.use('/nurse', nurse_routes_1.default);
+app.use('/patient', patient_routes_1.default);
 app.use('/user', user_routes_1.default);
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

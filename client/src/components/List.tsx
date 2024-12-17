@@ -1,13 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { calculateAge } from "../helper/calculateAge"
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { selectRole } from "../redux/slices/UserInfoSlice";
+import { getShowUserDetails, selectRole, selectShowUserId, setUserId } from "../redux/slices/UserInfoSlice";
 import { setDeleteStaffId } from "../redux/slices/AdminInfoSlice";
 
-function List({ type, data }: { type: string, data: IDoctor[] | INurse[] }) {
+function List({ type, data }: { type: string, data: IDoctor[] | INurse[] | IPatient[] }) {
   const dispatch = useAppDispatch();
+  const showUserId = useAppSelector(selectShowUserId);
   const [more, setMore] = useState<string | null>(null);
   const userRole = useAppSelector(selectRole);
+
+  useEffect( () => {
+    if (showUserId) dispatch(getShowUserDetails());
+  }, [showUserId])
 
   return (
     <div className="flex flex-col gap-1 w-full py-2">
@@ -51,14 +56,20 @@ function List({ type, data }: { type: string, data: IDoctor[] | INurse[] }) {
                   item.availableSlots.map((item: string, index: number) => (
                     <span key={index} className="bg-black/5 h-min px-1 rounded">{item}</span>
                   ))
-                  : (
+                  : type === "Nurse" ? (
                     <>{item.degree[0]}....</>
+                  ) : (
+                    <>{item.appointments.length}</>
                   )
               }
             </div>
             <div className={`flex lg:w-1/6 md:w-1/5 w-1/3 justify-end items-center gap-2`}>
               <div className={`${more == item._id ? "flex flex-col" : "hidden"} gap-1 text-sm items-center p-1 rounded-md bg-gray-100 shadow-lg `}>
-                <button className="w-full bg-blue-500 text-white font-semibold py-[1px] px-2 rounded-[3px] hover:bg-blue-600 transition">
+                <button className="w-full bg-blue-500 text-white font-semibold py-[1px] px-2 rounded-[3px] hover:bg-blue-600 transition" onClick={() => {
+                  dispatch(setUserId(item.userId._id));
+                  setMore(null);
+                }}
+                >
                   More Details
                 </button>
                 <button className={`${userRole === "Admin" ? "flex" : "hidden"} w-full bg-red-500 text-white font-semibold py-[1px] px-2 rounded-[3px] hover:bg-red-600 transition`} onClick={() => dispatch(setDeleteStaffId(item._id))}>

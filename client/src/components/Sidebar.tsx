@@ -69,7 +69,7 @@ function Sidebar() {
           <div className='flex w-full text-zinc-400 text-lg font-semibold'>General</div>
           <div className='flex flex-col w-full gap-3 text-xl'>
             {
-              urls && urls.slice(0, 5).map((url, index) => (
+              urls && urls.map((url, index) => (
                 <Link key={index} to={url.path} className={`flex w-full pl-2 py-2 rounded-lg hover:bg-zinc-400 cursor-pointer items-center ${currentPath === url.path ? "bg-zinc-100 font-bold shadow-inner text-black" : "font-semibold text-white"}`} onClick={() => dispatch(setMenu())}>
                   {url.name}
                 </Link>

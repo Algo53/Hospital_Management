@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { selectRole, selectUserInfo, userInfoReset } from "../redux/slices/UserInfoSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { getAdminInfoRoute, selectAdminInfo } from "../redux/slices/AdminInfoSlice";
-import { getDoctorInfoRoute, selectDoctorInfo } from "../redux/slices/DoctorInfoSlice";
+import { selectAdminInfo } from "../redux/slices/AdminInfoSlice";
+import { selectDoctorInfo } from "../redux/slices/DoctorInfoSlice";
 import { PersonalVariables } from "../helper/ProfiePageVariables";
 import UpdateUserForm from "../components/UpdateUserForm";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +23,6 @@ function ProfilePage() {
     e.preventDefault();
     dispatch(userInfoReset());
   }
-
-  useEffect(() => {
-    if (userRole === 'Admin') dispatch(getAdminInfoRoute());
-    else if (userRole === "Doctor") dispatch(getDoctorInfoRoute);
-  }, [])
 
   useEffect(() => {
     if (userRole === 'Admin') setData(adminInfo);
@@ -91,7 +86,7 @@ function ProfilePage() {
                             </div>
                           )}
                         </div>
-                        <div className='flex w-full h-[1px] bg-slate-400'></div>
+                        <div key={(index + 1)*200} className='flex w-full h-[1px] bg-slate-400'></div>
                       </>
                     ) : null
                   )
@@ -107,7 +102,7 @@ function ProfilePage() {
                 <div className="flex w-1/2 gap-1 text-lg font-medium">
                   {
                     data?.companyName.map((item: string, index: number) => (
-                      <div className="flex p-1 bg-black/10 rounded-md">{item}</div>
+                      <div key={index} className="flex p-1 bg-black/10 rounded-md">{item}</div>
                     ))
                   }
                 </div>
@@ -131,9 +126,10 @@ function ProfilePage() {
         }
       </div>
       <div className="flex w-full justify-between">
-        <button className="flex text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20" onClick={handleLogout}>Logout</button>
-        <button className={`${updateButton ? "hidden" : "flex"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer ${updateButton ? "bg-blue-500 hover:bg-blue-600" : "hover:bg-black/20"}`} onClick={() => setUpdateButton(!updateButton)}>Edit</button>
-        <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer ${updateButton ? "bg-blue-500 hover:bg-blue-600" : "hover:bg-black/20"}`} onClick={() => setUpdateClick(!updateClick)}>{updateClick ? "Updating..." : "Update"}</button>
+        <button className={`${updateButton ? "hidden" : "flex"} text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20`} onClick={handleLogout}>Logout</button>
+        <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20`} onClick={() => {setUpdateButton(!updateButton)}}>Cancel</button>
+        <button className={`${updateButton ? "hidden" : "flex"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer bg-gradient-to-r from-blue-300 to-blue-600 hover:from-blue-600 hover:to-blue-800`} onClick={() => setUpdateButton(!updateButton)}>Edit</button>
+        <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-600 hover:to-blue-800`} onClick={() => setUpdateClick(!updateClick)}>{updateClick ? "Updating..." : "Update"}</button>
       </div>
     </div>
   )

@@ -4,6 +4,14 @@ import mongoose, { Document } from "mongoose";
 export interface IPatient extends Document {
     userId: mongoose.Types.ObjectId,
     companyName: string,
+    height: number,
+    weight: number,
+    address: string,
+    bloodGroup: string,
+    bloodPressure: string,
+    emergencyContactName: string,
+    emergencyContactPhone: string,
+    emergencyContactRelation: string,
     appointments: mongoose.Types.ObjectId[],
     medicalHistory: mongoose.Types.ObjectId[],
     createdAt: Date,
@@ -20,6 +28,30 @@ const PatientSchema = new mongoose.Schema<IPatient>({
     companyName: {
         type: String,
         required: true,
+    },
+    height: {
+        type: Number,
+    },
+    weight: {
+        type: Number
+    },
+    address: {
+        type: String
+    },
+    bloodGroup: {
+        type: String
+    },
+    bloodPressure: {
+        type: String 
+    },
+    emergencyContactName: {
+        type: String
+    },
+    emergencyContactPhone: {
+        type: String
+    },
+    emergencyContactRelation: {
+        type: String
     },
     appointments: [
         {
