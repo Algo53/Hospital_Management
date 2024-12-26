@@ -14,7 +14,7 @@ const app = express();
 ConnectToMongoDB();
 
 app.use(cors({
-  origin: [process.env.CLIENT_URL || "https://hm-frontend-six.vercel.app"],
+  origin: [process.env.CLIENT_URL || "https://hospital-management-neon.vercel.app"],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }))
