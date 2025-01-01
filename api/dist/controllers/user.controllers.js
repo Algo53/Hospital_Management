@@ -22,7 +22,7 @@ const Appointment_1 = __importDefault(require("../lib/models/Appointment"));
 const getUserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId, role } = req.user;
-        const user = yield User_1.default.findById(userId);
+        const user = yield User_1.default.findById(userId).select("-password");
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

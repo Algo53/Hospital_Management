@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDoctorAssignedSlots = exports.assignNurseToDoctor = exports.getDoctorInfo = exports.getAllDoctorInfo = void 0;
+exports.updateAppointment = exports.getDoctorAssignedSlots = exports.assignNurseToDoctor = exports.getDoctorInfo = exports.getAllDoctorInfo = void 0;
 const Doctor_1 = __importDefault(require("../lib/models/Doctor"));
 const Nurse_1 = __importDefault(require("../lib/models/Nurse"));
 const Appointment_1 = __importDefault(require("../lib/models/Appointment"));
@@ -85,3 +85,43 @@ const getDoctorAssignedSlots = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getDoctorAssignedSlots = getDoctorAssignedSlots;
+const updateAppointment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const appointmentId = req.params.id;
+        const role = req.user.role;
+        if (role !== 'Doctor') {
+            return res.status(403).json({ success: false, message: 'Unauthorized Access!' });
+        }
+        const appointment = yield Appointment_1.default.findById(appointmentId);
+        if (!appointment) {
+            return res.status(404).json({ success: false, message: 'Appointment not found. Please Enter a valid Appointment ID.' });
+        }
+        if (!appointment.doctorId.equals(req.body.doctorId)) {
+            return res.status(403).json({ success: false, message: 'Unauthorized Access!' });
+        }
+        const { cureByDoctor, progress } = req.body.data;
+        // Validate progress
+        if (progress !== undefined && (progress < 0 || progress > 100)) {
+            return res.status(400).json({
+                success: false,
+                message: "Progress value must be between 0 and 100.",
+            });
+        }
+        // Update only allowed fields
+        if (cureByDoctor) {
+            appointment.cureByDoctor.push({ data: cureByDoctor, createdAt: new Date() });
+        }
+        if (progress !== undefined) {
+            appointment.progress = progress;
+            if (progress === 100) {
+                appointment.status = 'Completed';
+            }
+        }
+        yield appointment.save();
+        return res.status(200).json({ success: true, data: appointment });
+    }
+    catch (error) {
+        return res.status(500).json({ success: false, message: error.message || 'Server Error' });
+    }
+});
+exports.updateAppointment = updateAppointment;

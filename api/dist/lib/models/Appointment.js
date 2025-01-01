@@ -20,6 +20,12 @@ const AppointmentSchema = new mongoose_1.default.Schema({
         type: String,
         default: ""
     },
+    cureByDoctor: [
+        {
+            data: { type: String },
+            createdAt: { type: Date, default: Date.now }
+        }
+    ],
     status: {
         type: String,
         enum: ["Pending", "Completed"],
