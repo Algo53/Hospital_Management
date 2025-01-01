@@ -135,12 +135,36 @@ export const getDoctorAssignedSlots = createAsyncThunk(
     }
 );
 
+export const updateAppointment = createAsyncThunk(
+    "Update the Appointment By the Doctor",
+    async(payload: {appointmentId: IdType, data: UpdateAppointmentData}, {getState, rejectWithValue}) => {
+        try {
+            const state = getState() as RootState;
+            const token = state.userInfo.token;
+            const doctorInfo = state.doctorInfo.doctorInfo;
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URI}/doctor/appointment/update/${payload.appointmentId}`, {data: payload.data, doctorId: doctorInfo?._id}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                withCredentials: true
+            })
+            const result = await response.data;
+            return result.success ? result.data : null;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+
 export const doctorInfoSlice = createSlice({
     name: 'doctorInfo',
     initialState,
     reducers: {
         resetNewDoctor: (state) => {
             state.newDoctor = null;
+            state.status = 'idle';
+        },
+        resetDoctorStatus: (state) => {
             state.status = 'idle';
         }
     },
@@ -179,6 +203,15 @@ export const doctorInfoSlice = createSlice({
             .addCase(getDoctorAssignedSlots.fulfilled, (state, action: PayloadAction<any>) => {
                 state.doctorSlots = action.payload;
             })
+            .addCase(updateAppointment.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(updateAppointment.fulfilled, (state) => {
+                state.status = 'idle';
+            })
+            .addCase(updateAppointment.rejected, (state) => {
+                state.status = 'rejected'
+            })
     }
 })
 
@@ -186,7 +219,7 @@ export const selectAllDoctors = (state: RootState) => state.doctorInfo.allDoctor
 export const selectNewDoctor = (state: RootState) => state.doctorInfo.newDoctor;
 export const selectDoctorInfo = (state: RootState) => state.doctorInfo.doctorInfo;
 export const selectDoctorSlots = (state: RootState) => state.doctorInfo.doctorSlots;
-export const selectStatus = (state: RootState) => state.doctorInfo.status;
+export const selectDoctorStatus = (state: RootState) => state.doctorInfo.status;
 
-export const {resetNewDoctor} = doctorInfoSlice.actions;
+export const { resetNewDoctor, resetDoctorStatus } = doctorInfoSlice.actions;
 export default doctorInfoSlice.reducer;

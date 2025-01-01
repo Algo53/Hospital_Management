@@ -11,7 +11,9 @@ function ShowUserDetails() {
     const [userData, setUserData] = useState<any>(null);
 
     const handleAssignNurseButton = () => {
-        if (userData[0]?._id) dispatch(assignNurseToDoctor({nurseId: userData[0]?._id}))
+        if (userData?._id) {
+            dispatch(assignNurseToDoctor({nurseId: userData?._id}))
+        }
     }
 
     useEffect(() => {

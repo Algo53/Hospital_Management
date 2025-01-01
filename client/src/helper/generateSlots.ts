@@ -42,7 +42,7 @@ export const generateDateStrings = (): { value: string; data: string }[] => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
         const year = date.getFullYear();
-        const formattedValue = `${day}-${month}-${year}`; // Format as "17-12-2024"
+        const formattedValue = `${month}-${day}-${year}`; // Format as "12-17-2024"
 
         days.push({ value: formattedValue, data: formattedData });
     }

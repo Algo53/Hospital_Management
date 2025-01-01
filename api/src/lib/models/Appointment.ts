@@ -5,6 +5,12 @@ export interface IAppointment extends Document {
     patientId: mongoose.Types.ObjectId,
     doctorId: mongoose.Types.ObjectId,
     reasoneForAppointment: string,
+    cureByDoctor: [
+        {
+            data: string,
+            createdAt: Date
+        }
+    ],
     scheduledDate: string,
     status: "Pending" | "Completed",
     progress: number
@@ -26,6 +32,12 @@ const AppointmentSchema = new mongoose.Schema<IAppointment>({
         type: String,
         default: ""
     },
+    cureByDoctor: [
+        {
+            data: { type: String},
+            createdAt: {type: Date, default: Date.now} 
+        }
+    ],
     status: {
         type: String,
         enum: [ "Pending", "Completed"],

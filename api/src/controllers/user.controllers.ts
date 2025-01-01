@@ -9,7 +9,7 @@ import Appointment from "../lib/models/Appointment";
 export const getUserInfo = async (req: Request, res: Response): Promise<any> => {
     try {
         const { userId, role } = (req as any).user;
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select("-password");
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

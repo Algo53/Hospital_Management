@@ -91,6 +91,7 @@ declare type IAppointment = {
     doctorId: IdType | string;
     scheduledDate: string,
     reasoneForAppointment: string,
+    cureByDoctor?: {data: string,createdAt: Date}[],
     status: "Pending" | "Completed",
     progress: number
 }
@@ -131,6 +132,15 @@ declare type UpdatePatientParams = {
     bloodPressure?: string,
     height?: number,
     weight?: number,
+}
+
+// Update Appointment Data 
+declare type UpdateAppointmentData = {
+    reasoneForAppointment?: string,
+    cureByDoctor?: string,
+    scheduledDate?: string,
+    status?: "Pending" | "Completed",
+    progress?: number
 }
 
 declare type IAddDoctor = {

@@ -153,17 +153,21 @@ export const appointmentInfoSlice = createSlice({
     name: 'appointmentInfo',
     initialState,
     reducers: {
+        setAppointmentInfo: (state, action: PayloadAction<any>) => {
+            state.appointmentInfo = action.payload;
+        },
+        resetAppointmentInfo: (state) => {
+            state.appointmentInfo = null;
+        },
         setAppointmentId: (state, action: PayloadAction<any>) => {
             state.appointmentId = action.payload;
         },
         removeAppointmentId: (state) => {
             state.appointmentId = null;
+            state.appointmentInfo = null;
         },
         resetAppointmentStatus: (state) => {
             state.status = 'idle';
-        },
-        resetAppointmentInfo: (state) => {
-            state.appointmentInfo = null;
         },
         resetnewAppointment: (state) => {
             state.newAppointment = null;
@@ -232,7 +236,8 @@ export const appointmentInfoSlice = createSlice({
 export const selectAllAppointments = (state: RootState) => state.appointmentInfo.allAppointments;
 export const selectNewAppointment = (state: RootState) => state.appointmentInfo.newAppointment;
 export const selectAppointmentInfo = (state: RootState) => state.appointmentInfo.appointmentInfo;
+export const selectAppointmentId = (state: RootState) => state.appointmentInfo.appointmentId
 export const selectAppointmentStatus = (state: RootState) => state.appointmentInfo.status;
 
-export const { setAppointmentId, removeAppointmentId, resetAppointmentStatus, resetAppointmentInfo, resetnewAppointment, resetAppointmentState } = appointmentInfoSlice.actions;
+export const { setAppointmentInfo, setAppointmentId, removeAppointmentId, resetAppointmentStatus, resetAppointmentInfo, resetnewAppointment, resetAppointmentState } = appointmentInfoSlice.actions;
 export default appointmentInfoSlice.reducer;

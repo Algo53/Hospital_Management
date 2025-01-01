@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { getAllDoctorInfoRoute, selectAllDoctors } from "../../redux/slices/DoctorInfoSlice";
 import { getAllNurseInfoRoute, selectAllNurses } from "../../redux/slices/NurseInfoSlice";
 import { getAdminInfoRoute, selectAdminInfo } from "../../redux/slices/AdminInfoSlice";
-import { selectAllPatients } from "../../redux/slices/PatientInfoSlice";
+import { getAllPatientInfoRoute, selectAllPatients } from "../../redux/slices/PatientInfoSlice";
 
 function AdminDashboard() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ function AdminDashboard() {
 
   const noOfDoctors = allDoctors?.length || 0;
   const noOfStaff = allStaff?.length || 0;
-  const noOfPatients = allPatients.length || 0; 
+  const noOfPatients = allPatients?.length || 0; 
   const noOfBeds = 57; // Example static value
 
   const options = [
@@ -44,6 +44,7 @@ function AdminDashboard() {
     if (!adminInfo) dispatch(getAdminInfoRoute());
     dispatch(getAllDoctorInfoRoute());
     dispatch(getAllNurseInfoRoute());
+    dispatch(getAllPatientInfoRoute());
   }, [])
   
   return (

@@ -6,6 +6,7 @@ import { selectDoctorInfo } from "../redux/slices/DoctorInfoSlice";
 import { PersonalVariables } from "../helper/ProfiePageVariables";
 import UpdateUserForm from "../components/UpdateUserForm";
 import { useNavigate } from "react-router-dom";
+import { selectNurseInfo } from "../redux/slices/NurseInfoSlice";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function ProfilePage() {
   const userInfo = useAppSelector(selectUserInfo);
   const adminInfo = useAppSelector(selectAdminInfo);
   const doctorInfo = useAppSelector(selectDoctorInfo);
+  const nurseInfo = useAppSelector(selectNurseInfo);
   const [updateButton, setUpdateButton] = useState<boolean>(false);
   const [updateClick, setUpdateClick] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
@@ -27,12 +29,13 @@ function ProfilePage() {
   useEffect(() => {
     if (userRole === 'Admin') setData(adminInfo);
     else if (userRole === "Doctor") setData(doctorInfo);
-  }, [doctorInfo, adminInfo])
+    else if (userRole === "Nurse") setData(nurseInfo);
+  }, [doctorInfo, adminInfo, nurseInfo]);
 
-  useEffect( () => {
+  useEffect(() => {
     if (userInfo) setDetails(userInfo);
     else navigate('/login');
-  }, [userInfo])
+  }, [userInfo]);
 
   return (
     <div className='flex flex-col flex-grow w-full h-full gap-3'>
@@ -49,7 +52,7 @@ function ProfilePage() {
         {
           updateButton ?
             (
-              <UpdateUserForm update={setUpdateButton} updateClick={updateClick} setUpdateClick={setUpdateClick}/>
+              <UpdateUserForm update={setUpdateButton} updateClick={updateClick} setUpdateClick={setUpdateClick} />
             )
             :
             (
@@ -86,7 +89,7 @@ function ProfilePage() {
                             </div>
                           )}
                         </div>
-                        <div key={(index + 1)*200} className='flex w-full h-[1px] bg-slate-400'></div>
+                        <div key={(index + 1) * 200} className='flex w-full h-[1px] bg-slate-400'></div>
                       </>
                     ) : null
                   )
@@ -108,26 +111,65 @@ function ProfilePage() {
                 </div>
               </div>
             )
-            :
-            userRole === "Doctor" ?
+            : userRole === "Doctor" ?
               (
-                <div className="flex w-full items-center">
-                  <div className="flex w-1/2 text-xl font-semibold">Organisation</div>
-                  <div className="flex w-1/2 gap-1 text-lg font-medium">{data?.companyName}</div>
+                <div className="flex flex-col md:flex-row gap-3 justify-center">
+                  <div className='flex w-full md:w-1/2 justify-between items-center'>
+                    <div className="flex w-1/2 text-xl font-semibold">Organisation</div>
+                    <div className="flex w-1/2 gap-1 text-lg font-medium">{data?.companyName}</div>
+                  </div>
+                  <div className='flex md:hidden w-full h-[1px] bg-slate-400'></div>
+                  <div className='flex w-full md:w-1/2 justify-between items-center'>
+                    <div className="flex w-1/2 text-xl font-semibold">Department</div>
+                    <div className="flex w-1/2">
+                      {
+                        data?.department && <div className="flex p-1 bg-black/10 rounded-md">{data?.department}</div>
+                      }
+                    </div>
+                  </div>
                 </div>
               )
               :
               (
-                <div className="flex w-full items-center">
+                <div className='flex w-full items-center'>
                   <div className="flex w-1/2 text-xl font-semibold">Organisation</div>
                   <div className="flex w-1/2 gap-1 text-lg font-medium">{data?.companyName}</div>
                 </div>
               )
         }
+        {
+          userRole === 'Doctor' || userRole === "Nurse" ? (
+            <>
+              <div className='flex w-full h-[1px] bg-slate-400'></div>
+              <div className="flex flex-col justify-center gap-3">
+                <div className='flex w-full justify-between items-center'>
+                  <div className="flex w-1/2 text-xl font-semibold">Degree</div>
+                  <div className="flex flex-col md:flex-row w-1/2 gap-1">
+                    {
+                      data?.degree && data.degree.map((item: string, index: number) => (
+                        <div key={index} className="flex p-1 bg-black/10 rounded-md">{item}</div>
+                      ))
+                    }
+                  </div>
+                </div>
+                <div className='flex w-full h-[1px] bg-slate-400'></div>
+                <div className='flex w-full justify-between items-center'>
+                  <div className="flex w-1/2 text-xl font-semibold">Specialization</div>
+                  <div className="flex w-1/2">
+                    {
+                      data?.specialization && <div className="flex p-1 bg-black/10 rounded-md">{data?.specialization}</div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className='flex w-full h-[1px] bg-slate-400'></div>
+            </>
+          ) : null
+        }
       </div>
       <div className="flex w-full justify-between">
         <button className={`${updateButton ? "hidden" : "flex"} text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20`} onClick={handleLogout}>Logout</button>
-        <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20`} onClick={() => {setUpdateButton(!updateButton)}}>Cancel</button>
+        <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold p-2 border-1 border-black rounded-md cursor-pointer hover:bg-black/20`} onClick={() => { setUpdateButton(!updateButton) }}>Cancel</button>
         <button className={`${updateButton ? "hidden" : "flex"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer bg-gradient-to-r from-blue-300 to-blue-600 hover:from-blue-600 hover:to-blue-800`} onClick={() => setUpdateButton(!updateButton)}>Edit</button>
         <button className={`${updateButton ? "flex" : "hidden"} text-lg font-bold py-2 px-3 border-1 border-black rounded-md cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-600 hover:to-blue-800`} onClick={() => setUpdateClick(!updateClick)}>{updateClick ? "Updating..." : "Update"}</button>
       </div>

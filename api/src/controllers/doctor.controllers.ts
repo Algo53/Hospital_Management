@@ -76,3 +76,50 @@ export const getDoctorAssignedSlots = async ( req: Request, res: Response): Prom
         return res.status(500).json({ success: false, message: error.message || 'Server Error' });
     }
 };
+
+export const updateAppointment = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const appointmentId = req.params.id;
+        const role = (req as any).user.role;
+
+        if (role !== 'Doctor') {
+            return res.status(403).json({ success: false, message: 'Unauthorized Access!'});
+        }
+
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return res.status(404).json({ success: false, message: 'Appointment not found. Please Enter a valid Appointment ID.'});
+        }
+
+        if (!appointment.doctorId.equals(req.body.doctorId)) {
+            return res.status(403).json({ success: false, message: 'Unauthorized Access!'});
+        }
+
+        const {cureByDoctor, progress} = req.body.data;
+        
+        // Validate progress
+        if (progress !== undefined && (progress < 0 || progress > 100)) {
+            return res.status(400).json({
+                success: false,
+                message: "Progress value must be between 0 and 100.",
+            });
+        }
+
+        // Update only allowed fields
+        if (cureByDoctor) {
+            appointment.cureByDoctor.push({ data: cureByDoctor, createdAt: new Date() });
+        }
+        if (progress !== undefined) {
+            appointment.progress = progress;
+            if (progress === 100) {
+                appointment.status = 'Completed';
+            }
+        }
+
+        await appointment.save();
+        
+        return res.status(200).json({ success: true, data: appointment });
+    } catch (error : any) {
+        return res.status(500).json({ success: false, message: error.message || 'Server Error' });
+    }
+};

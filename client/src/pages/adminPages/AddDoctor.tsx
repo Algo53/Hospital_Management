@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { selectUserInfo } from "../../redux/slices/UserInfoSlice";
 import { Degrees, Deparments, Specialization } from "../../helper/specialization";
 import uploadFile from "../../components/Uploadar";
-import { addDoctorRoute, resetNewDoctor, selectNewDoctor, selectStatus } from "../../redux/slices/DoctorInfoSlice";
+import { addDoctorRoute, resetNewDoctor, selectNewDoctor, selectDoctorStatus } from "../../redux/slices/DoctorInfoSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ interface DoctorFormState {
 const AddDoctor: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const status = useAppSelector(selectStatus);
+    const status = useAppSelector(selectDoctorStatus);
     const newDoctor = useAppSelector(selectNewDoctor);
     const userInfo = useAppSelector(selectUserInfo);
     const [loading, setLoading] = useState<boolean>(false);
