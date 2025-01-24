@@ -89,7 +89,7 @@ function ShowAppointment() {
                                     </div>
                                     <div className='flex items-center'>
                                         <div className='text-sm sm:text-lg lg:text-xl w-1/2 font-bold'>Email Address</div>
-                                        <div className='text-[10px] sm:text-md lg:text-lg w-1/2 font-semibold py-1 px-2 rounded-md bg-gray-400'>{patinetInfo?.userId.email}</div>
+                                        <div className='text-[10px] sm:text-md lg:text-lg w-1/2 font-semibold py-1 px-2 rounded-md bg-gray-400 overflow-x-scroll hide-scrollbar'>{patinetInfo?.userId.email}</div>
                                     </div>
                                     <div className='flex items-center'>
                                         <div className='text-sm sm:text-lg lg:text-xl w-1/2 font-bold'>Phone Number</div>
@@ -147,7 +147,7 @@ function ShowAppointment() {
                                             appointmentInfo?.cureByDoctor.map((item, index) => {
                                                 const date = new Date(item.createdAt).toLocaleString();
                                                 return (
-                                                    <div key={index} className='font-semibold py-1 px-2 rounded-md bg-gray-400 bg-white/90 flex justify-between'>
+                                                    <div key={index} className='font-semibold py-1 px-2 rounded-md bg-gray-400 bg-white/90 flex flex-col gap-1 justify-between'>
                                                         <div className="text-md md:text-lg ">{item.data}</div>
                                                         <div className="flex text-xs md:text-md">{date}</div>
                                                     </div>

@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from "../redux/store";
 import { selectAdminInfo } from "../redux/slices/AdminInfoSlice";
 import { selectDoctorInfo } from "../redux/slices/DoctorInfoSlice";
 import { PersonalVariables } from "../helper/ProfiePageVariables";
-import UpdateUserForm from "../components/UpdateUserForm";
-import { useNavigate } from "react-router-dom";
 import { selectNurseInfo } from "../redux/slices/NurseInfoSlice";
+import { useNavigate } from "react-router-dom";
+import UpdateUserForm from "../components/UpdateUserForm";
 
 function ProfilePage() {
   const navigate = useNavigate();

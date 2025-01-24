@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { removeUserId, selectRole, selectShowUserDetails } from '../redux/slices/UserInfoSlice';
 import { assignNurseToDoctor } from '../redux/slices/DoctorInfoSlice';
+import { removeUserId, selectRole, selectShowUserDetails } from '../redux/slices/UserInfoSlice';
 
 function ShowUserDetails() {
     const dispatch = useAppDispatch();
@@ -45,19 +45,19 @@ function ShowUserDetails() {
                 </div>
                 <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                 <div className='flex justify-between px-3 py-2'>
-                    <div className='flex text-xl font-semibold'>Gender : {personalInfo?.gender}</div>
-                    <div className='flex text-xl font-semibold'>Phone : {personalInfo?.phone}</div>
+                    <div className='flex text-sm xss:text-md xs:text-xl font-semibold'>Gender : {personalInfo?.gender}</div>
+                    <div className='flex text-sm xss:text-md xs:text-xl font-semibold'>Phone : {personalInfo?.phone}</div>
                 </div>
                 <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                 {
                     personalInfo?.role === "Doctor" ? (
                         <>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Degree :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Degree :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.degree.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))
@@ -66,11 +66,11 @@ function ShowUserDetails() {
                             </div>
                             <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Specialization :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Specialization :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.specialization.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))
@@ -79,11 +79,11 @@ function ShowUserDetails() {
                             </div>
                             <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Timings :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Timings :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.availableSlots.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))
@@ -96,11 +96,11 @@ function ShowUserDetails() {
                     ) : personalInfo?.role === "Nurse" ? (
                         <>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Degree :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Degree :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.degree.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm  whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))
@@ -109,11 +109,11 @@ function ShowUserDetails() {
                             </div>
                             <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Specialization :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Specialization :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.specialization.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))
@@ -122,11 +122,11 @@ function ShowUserDetails() {
                             </div>
                             <div className='flex h-[2px] bg-zinc-200 w-full'></div>
                             <div className='flex gap-2 py-2 px-3 items-center'>
-                                <div className='flex text-xl font-bold'>Timings :</div>
-                                <div className='flex text-lg gap-1'>
+                                <div className='flex text-md sm:text-lg xl:text-xl font-bold whitespace-nowrap'>Timings :</div>
+                                <div className='flex text-sm sm:text-md xl:text-lg gap-1 overflow-x-scroll hide-scrollbar'>
                                     {
                                         userData && userData?.shiftTimings.map((item: any, index: number) => (
-                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm'>
+                                            <div key={index} className='flex border-2 border-black rounded-lg py-1 px-2 text-sm whitespace-nowrap'>
                                                 {item}
                                             </div>
                                         ))

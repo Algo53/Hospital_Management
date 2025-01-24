@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { RootState, useAppDispatch, useAppSelector } from "../redux/store";
 import { Link } from "react-router-dom";
+import { RootState, useAppDispatch, useAppSelector } from "../redux/store";
 import { selectMenu, selectRole, setMenu } from "../redux/slices/UserInfoSlice";
 
 function Navbar() {
@@ -26,14 +26,14 @@ function Navbar() {
                 <div className={`${menu ? "hidden" : "flex"}  hover:bg-black/10 py-3 px-1 rounded-md cursor-pointer`} onClick={() => dispatch(setMenu())}>
                     <i className="fa-solid fa-bars fa-2xl" />
                 </div>
-                <div className='flex  gap-3 items-center'>
-                    <div className="flex px-2 py-[18px] rounded-lg hover:bg-black/10"><i className="fa-solid fa-calendar-days fa-xl cursor-pointer" /></div>
-                    <div className="md:flex hidden">{currentDate}</div>
+                <div className='flex gap-3 items-center'>
+                    <div className="md:flex hidden px-2 py-[18px] rounded-lg hover:bg-black/10"><i className="fa-solid fa-calendar-days fa-xl cursor-pointer" /></div>
+                    <div className="sm:flex hidden">{currentDate}</div>
                 </div>
             </div>
             <div className='flex gap-3 items-center pr-5 pl-2 pb-2'>
-                <div className='flex items-center hover:bg-black/20 px-2 py-4 rounded-3xl'><i className="fa-regular fa-bell fa-2xl cursor-pointer" /></div>
-                <div className="flex w-[2px] h-12 bg-black"></div>
+                <div className='xs:flex hidden items-center hover:bg-black/20 px-2 py-4 rounded-3xl'><i className="fa-regular fa-bell fa-2xl cursor-pointer" /></div>
+                <div className="xs:flex hidden w-[2px] h-12 bg-black"></div>
                 <Link to='profile' className="flex items-center gap-3 rounded-lg hover:bg-black/20 py-1 px-2 cursor-pointer">
                     {
                         userInfo?.photo ? (

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { calculateAge } from "../helper/calculateAge"
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { getShowUserDetails, selectRole, selectShowUserId, setUserId } from "../redux/slices/UserInfoSlice";
 import { setDeleteStaffId } from "../redux/slices/AdminInfoSlice";
+import { getShowUserDetails, selectRole, selectShowUserId, setUserId } from "../redux/slices/UserInfoSlice";
 
 function List({ type, data }: { type: string, data: IDoctor[] | INurse[] | IPatient[] }) {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ function List({ type, data }: { type: string, data: IDoctor[] | INurse[] | IPati
                 type === "Doctor" ? item.department : calculateAge(item.userId.dateOfBirth)
               }
             </div>
-            <div className="sm:flex hidden lg:w-1/6 md:w-1/5 sm:w-1/4  w-1/3 justify-center">
+            <div className="sm:flex hidden lg:w-1/6 md:w-1/5 sm:w-1/4 w-1/3 justify-center">
               {
                 type === "Doctor" ?
                   item.specialization.map((e: string, index: number) => (
@@ -41,7 +41,7 @@ function List({ type, data }: { type: string, data: IDoctor[] | INurse[] | IPati
                   : item.userId.gender
               }
             </div>
-            <div className="md:flex hidden lg:w-1/6 md:w-1/5 sm:w-1/4  w-1/3 justify-center gap-1">
+            <div className="md:flex hidden lg:w-1/6 md:w-1/5 sm:w-1/4 w-1/3 justify-center gap-1">
               {
                 type === "Doctor" ?
                   item.degree.map((e: string, index: number) => (
@@ -50,11 +50,11 @@ function List({ type, data }: { type: string, data: IDoctor[] | INurse[] | IPati
                   : item.userId.phone
               }
             </div>
-            <div className="hidden lg:flex lg:w-1/6 md:w-1/5 sm:w-1/4  w-1/3 justify-end gap-1">
+            <div className="hidden lg:flex lg:w-1/6 md:w-1/5 sm:w-1/4 w-1/3 justify-end gap-1">
               {
                 type === "Doctor" ?
                   item.availableSlots.map((item: string, index: number) => (
-                    <span key={index} className="bg-black/5 h-min px-1 rounded">{item}</span>
+                    <span key={index} className="bg-black/5 h-min px-1 rounded whitespace-nowrap">{item}</span>
                   ))
                   : type === "Nurse" ? (
                     <>{item.degree[0]}....</>

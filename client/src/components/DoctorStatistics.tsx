@@ -71,9 +71,9 @@ function DoctorStatistics({ appointments }: { appointments: IAppointment[] }) {
                 {
                     data.length > 0 && data.map((item: { key: string, value: string }, index: number) => (
 
-                        <div key={index} className="flex border rounded-md py-2 px-4 justify-between bg-gradient-to-r from-zinc-400 to-white">
-                            <div className="text-xl font-bold">{item.key}</div>
-                            <div className="text-2xl font-bold">{item.value}</div>
+                        <div key={index} className="flex border rounded-md py-2 px-4 justify-between items-center bg-gradient-to-r from-zinc-400 to-white">
+                            <div className="text-sm xs:text-lg md:text-xl font-bold">{item.key}</div>
+                            <div className="text-lg xs:text-xl md:text-2xl font-bold">{item.value}</div>
                         </div>
                     ))
                 }

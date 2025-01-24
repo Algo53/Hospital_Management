@@ -48,7 +48,7 @@ function DoctorDashboard() {
       <div className='flex flex-col gap-3 w-full h-full overflow-y-scroll hide-scrollbar'>
         <div className='flex-grow grid grid-cols-1 lg:grid-cols-2 gap-3 w-full'>
           <div className='flex flex-col flex-grow gap-3 bg-white rounded-lg hover:shadow-2xl p-3'>
-            <div className='flex w-max bg-gradient-to-r from-black/40 to-black/90 text-white p-1 rounded-md text-xl font-bold'>Today's Appoinements</div>
+            <div className='flex w-max bg-gradient-to-r from-black/40 to-black/90 text-white p-1 rounded-md text-md xss:text-lg xs:text-xl font-bold'>Today's Appoinements</div>
             <div className='flex flex-col w-full gap-1 border-2 border-slate-400 rounded-xl pb-2 h-60'>
               <div className='flex w-full p-3 justify-between'>
                 <div className='flex w-5/12'>{userRole === "Doctor" ? "Patient Name" : "Doctor Name"}</div>
@@ -71,7 +71,7 @@ function DoctorDashboard() {
             </div>
           </div>
           <div className='flex flex-col gap-3 bg-white rounded-lg hover:shadow-2xl p-3'>
-            <div className='flex w-max h-min text-xl font-bold bg-gradient-to-r from-green-300 to-green-700 p-1 rounded-md'>Completed Appoinements</div>
+            <div className='flex w-max h-min text-md xss:text-lg xs:text-xl font-bold bg-gradient-to-r from-green-300 to-green-700 p-1 rounded-md'>Completed Appoinements</div>
             <div className='flex flex-col w-full h-full gap-1 border-2 border-slate-400 rounded-xl pb-2 h-60'>
               <div className='flex w-full h-1/12 p-3 justify-between'>
                 <div className='flex w-5/12'>{userRole === "Doctor" ? "Patient Name" : "Doctor Name"}</div>
@@ -96,7 +96,7 @@ function DoctorDashboard() {
         </div>
         <div className='flex-grow grid grid-cols-1 lg:grid-cols-2 gap-3 w-full pb-3'>
           <div className='flex flex-col gap-3 bg-white rounded-lg hover:shadow-2xl p-3'>
-            <div className='flex w-max h-min text-xl font-bold bg-gradient-to-r from-blue-300 to-blue-700 p-1 rounded-md'>All Appoinements</div>
+            <div className='flex w-max h-min text-md xss:text-lg xs:text-xl font-bold bg-gradient-to-r from-blue-300 to-blue-700 p-1 rounded-md'>All Appoinements</div>
             <div className='flex flex-col w-full gap-1 border-2 border-slate-400 rounded-xl pb-2 h-60'>
               <div className='flex w-full p-3 justify-between'>
                 <div className='flex w-5/12'>{userRole === "Doctor" ? "Patient Name" : "Doctor Name"}</div>
@@ -119,7 +119,7 @@ function DoctorDashboard() {
             </div>
           </div>
           <div className='flex flex-col flex-grow gap-3 bg-white rounded-lg hover:shadow-2xl p-3'>
-            <div className='flex w-max bg-gradient-to-r from-red-400 to-red-900 text-white p-1 rounded-md text-xl font-bold'>Statistics of appoinements</div>
+            <div className='flex w-max bg-gradient-to-r from-red-400 to-red-900 text-white p-1 rounded-md text-md xss:text-lg xs:text-xl font-bold'>Statistics of appoinements</div>
             <div className='flex flex-col w-full pb-2 h-60'>
               <DoctorStatistics appointments={allAppointments} />
             </div>
